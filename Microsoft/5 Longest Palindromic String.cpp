@@ -1,7 +1,7 @@
 
 /* ### Approach:
 
-1. **Dynamic Programming and Memoization:**
+1. **Dynamic Programming Bottom UP Approach**
    - Create a 2D DP table to store whether substrings are palindromes.
    - Initialize DP table for substrings of length 1 and 2, as they are base cases.
    - For substrings of length 3 and more, use the result of smaller substrings to determine if the current substring is a palindrome.
@@ -82,4 +82,65 @@ public:
     }
 };
 
-//This code implements the explained approach and should return the longest palindromic substring for the given input string.
+/* Approach 2 : Recursion+Memoization :
+Let's analyze the time and space complexity of the given code:
+
+### Time Complexity:
+
+1. **Nested Loops:**
+   - The nested loops iterate over all possible substrings, considering each pair of indices `i` and `j`.
+   - The `solve` function is called for each pair, and its time complexity is O(1) in the best case and O(j-i+1) in the worst case.
+   - The overall time complexity is dominated by the nested loops, resulting in O(n^3), where `n` is the length of the input string.
+
+### Space Complexity:
+
+1. **DP Table:**
+   - The `t` array is used for memoization. Its size is `1001 x 1001`, and it stores boolean values.
+   - The space complexity for the `t` array is O(1001 * 1001), which is essentially O(1) considering it's a constant-size array.
+
+2. **Other Variables:**
+   - Other variables (`n`, `maxlen`, `sp`, `i`, `j`) use constant space, so they don't contribute significantly to the overall space complexity.
+
+The overall space complexity is dominated by the memoization table and is O(1) in this context.
+
+### Summary:
+
+- Time Complexity: O(n^3)
+- Space Complexity: O(1)
+*/
+class Solution {
+public:
+  int t[1001][1001];
+  bool solve(string &s,int i,int j){
+      if(i>=j){
+          return 1;
+      }
+      if(t[i][j]!=-1){
+          return t[i][j];
+      }
+      if(s[i]==s[j])
+      return t[i][j]=solve(s,i+1,j-1);
+
+      return t[i][j]=0;
+  }
+  string longestPalindrome(string s){
+      int n=s.length();
+      memset(t,-1,sizeof(t));
+      int maxlen=INT_MIN;
+      int sp=0;
+
+      for(int i=0;i<n;i++){
+          for(int j=i;j<n;j++){
+              if(solve(s,i,j)==true){
+                  if(maxlen<j-i+1){
+                      maxlen=j-i+1;
+                      sp=i;
+
+                  }
+              }
+          }
+      }
+      return s.substr(sp,maxlen);
+  }
+
+};
