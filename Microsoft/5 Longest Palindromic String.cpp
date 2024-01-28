@@ -1,5 +1,5 @@
 
-### Approach:
+/* ### Approach:
 
 1. **Dynamic Programming and Memoization:**
    - Create a 2D DP table to store whether substrings are palindromes.
@@ -38,7 +38,7 @@ The overall space complexity is O(n^2).
 
 ### Code:
 
-```cpp
+*/
 #include <vector>
 #include <string>
 
@@ -81,6 +81,5 @@ public:
         return s.substr(sp, maxlen);
     }
 };
-```
 
-This code implements the explained approach and should return the longest palindromic substring for the given input string.
+//This code implements the explained approach and should return the longest palindromic substring for the given input string.
