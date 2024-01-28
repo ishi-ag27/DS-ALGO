@@ -42,20 +42,30 @@ The overall space complexity is O(n^2).
 #include <vector>
 #include <string>
 
-class Solution {
+
+  class Solution {
 public:
+    bool isPalindrome(vector<vector<bool>>& dp, string& s, int l, int r) {
+        if (l == r)
+            return true;
+        else if (r - l == 1)
+            return s[l] == s[r];
+        else
+            return dp[l + 1][r - 1] && s[l] == s[r];
+    }
+
     string longestPalindrome(string s) {
         int n = s.size();
-        int maxlen = 1;  // Length of the longest palindromic substring
-        int sp = 0;      // Starting position of the longest palindromic substring
+        int maxlen = 1;
+        int sp = 0;
         vector<vector<bool>> dp(n, vector<bool>(n, false));
 
-        // Initialize DP table for substrings of length 1
+        // All substrings of length 1 are palindromes
         for (int i = 0; i < n; i++) {
             dp[i][i] = true;
         }
 
-        // Initialize DP table for substrings of length 2
+        // Check all substrings of length 2
         for (int i = 0; i < n - 1; i++) {
             if (s[i] == s[i + 1]) {
                 dp[i][i + 1] = true;
@@ -68,7 +78,7 @@ public:
         for (int len = 3; len <= n; len++) {
             for (int i = 0; i <= n - len; i++) {
                 int j = i + len - 1;
-                if (dp[i + 1][j - 1] && s[i] == s[j]) {
+                if (isPalindrome(dp, s, i, j)) {
                     dp[i][j] = true;
                     if (len > maxlen) {
                         maxlen = len;
