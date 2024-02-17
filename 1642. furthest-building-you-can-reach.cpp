@@ -41,3 +41,40 @@ public:
 };
 
 //Approach 2 :Lazy Greedy
+//TC O(NlogN) (logn push,pop etc of pq) SC O(N) (Ye toh priority queue banaya thats why)
+class Solution {
+public:
+    int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
+        int n=heights.size();
+        priority_queue<int>pq; //max-heap
+
+        int i=0;
+        //i->i+1
+        for(i=0;i<n-1;i++){
+            if(heights[i+1]<=heights[i]){
+                continue;
+            }
+            int diff=heights[i+1]-heights[i];
+            if(bricks>=diff){
+                bricks-=diff;
+                pq.push(diff);
+            }
+            else if(ladders>0){
+                if(!pq.empty()){
+                    int max_past_bricks=pq.top();
+                    if(max_past_bricks>diff){
+                    bricks+=max_past_bricks;
+                    pq.pop();
+                    bricks-=diff;
+                    pq.push(diff);
+                }
+            }
+            ladders--;//either used in past or present
+        }else{
+            break;
+        }
+
+    }
+    return i;
+    }
+};
