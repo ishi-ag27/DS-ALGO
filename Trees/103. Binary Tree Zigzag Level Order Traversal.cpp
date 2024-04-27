@@ -21,14 +21,11 @@ public:
         bool leftToRight=true;
         while(!q.empty()){
             int size=q.size();
-            vector<int>ans;
+            vector<int>ans(size);
             for(int i=0;i<size;i++){
             TreeNode* frontNode=q.front();
             q.pop();
             int index=leftToRight?i:size-i-1;
-            if (ans.size() <= index) {
-              ans.resize(index + 1);
-             }
             ans[index]=frontNode->val;
             if(frontNode->left){
                 q.push(frontNode->left);
