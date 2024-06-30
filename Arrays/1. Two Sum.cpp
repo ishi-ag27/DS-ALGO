@@ -18,29 +18,4 @@ public:
     }
 };
 
-//Approach 2 : Two Pointers 
-// TC: O(N)  SC:O(1)
 
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& numbers, int target) {
-        vector<int>ans;
-        int left=0;
-        int right=numbers.size()-1;
-        while(left<right){
-            if(numbers[left]+numbers[right]==target){
-                ans.push_back(left);
-                ans.push_back(right);
-                break;
-            }
-            else if(numbers[left]+numbers[right]<target){
-                left++;
-            }
-            else{
-                right--;
-            }
-        }
-    return ans;
-     
-    }
-};
