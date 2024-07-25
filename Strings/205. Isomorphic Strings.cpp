@@ -23,21 +23,18 @@ Output: true
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        int n1=s.size();
-        int n2=t.size();
-        if(n1!=n2)
-        return false;
-        map<char,char>m1,m2;
-        for(int i=0;i<n1;i++){
-            if(m1[s[i]]==0 &&m2[t[i]]==0){
-                m1[s[i]]=t[i];
-                m2[t[i]]=s[i];
-            }
-            else{
-                if(m1[s[i]]!=t[i] || m2[t[i]]!=s[i])
+        unordered_map<char,char>mp1;
+        unordered_map<char,char>mp2;
+        int m=s.length();
+        for(int i=0;i<m;i++){
+            char ch1=s[i];
+            char ch2=t[i];
+            if(mp1.find(ch1)!=mp1.end() && mp1[ch1]!=ch2 || mp2.find(ch2)!=mp2.end() && mp2[ch2]!=ch1){
                 return false;
             }
-        }
-        return true;
+            mp1[ch1]=ch2;
+            mp2[ch2]=ch1;
+            }
+            return true;
     }
 };
