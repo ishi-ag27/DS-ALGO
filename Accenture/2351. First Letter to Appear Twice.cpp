@@ -39,4 +39,20 @@ public:
        return s[0];
     }
 };
+
+//second solution
+class Solution {
+public:
+    char repeatedCharacter(string s) {
+       unordered_map<char,int>mpp;
+       for(char ch :s){
+        mpp[ch]++;
+        if(mpp[ch]==2){
+            return ch;
+        }
+      
+    }
+      return s[0];
+    }
+};
  
